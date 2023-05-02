@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Speech</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" href="full speach-text converter/style.css">
+</head>
+<body>
+
+  <!-- header start -->
+  <header class="header">
+     <div class="container">
+        <div class="header-main">
+           <div class="logo">
+              <a href="index.html">Speech</a>
+           </div>
+           <div class="open-nav-menu">
+              <span></span>
+           </div>
+           <div class="menu-overlay">
+           </div>
+           <!-- navigation menu start -->
+           <nav class="nav-menu">
+             <div class="close-nav-menu">
+                <img src="./img/close.svg" alt="close" >
+             </div>
+             <ul class="menu">
+            
+                <li class="menu-item">
+                   <a href="index.html">Speech To Text</a>
+                </li>
+                <li class="menu-item">
+                  <a href="text.html">Text To Speech</a>
+                </li>
+              
+             </ul>
+           </nav>
+           <!-- navigation menu end -->
+        </div>
+     </div>
+  </header>
+  <!-- header end -->
+
+ <!-- home section start -->
+ <section class="home-section">
+   <br> <br> <br> <br> <br>
+   <form>
+      <h1>Speech To Text Converter </h1>  <br> 
+
+      <textarea id="convert_text" rows="10" cols="30"></textarea> <br><br>
+      <center>
+       <button type="submit" id="click_to_record">Speak!</button>
+
+      <button type="button" id="click_to_record">Stop</button>
+      </center>
+     
+      <br> <br><br><br><br>
+    
+  <footer>
+      <p>&copy;<a href="https://instagram.com/strongadas009?igshid=YmMyMTA2M2Y=" target="_blank">Strongadas</a> all Rights Reserved</p>
+          
+   </footer>
+  </form>
+ </section>
+ <!-- home section end -->
+ <script>
+   const textarea = document.getElementById("convert_text")
+
+   let form = document.querySelector("form");
+
+   let sr = window.webkitSpeechRecognition || window.SpeechRecognition;
+
+   let spRec = new sr();
+
+   spRec.lang = "en";
+
+   spRec.continuous = true;
+
+   spRec.interimResults = true;
+
+   textarea.scrollTop= textarea.scrollHeight;
+
+   // console.log(spRec);
+
+   form.addEventListener("submit", e => {
+
+       e.preventDefault();
+
+       spRec.start();
+
+   })
+
+   spRec.onresult = res => {
+
+       let text = Array.from(res.results)
+
+           .map(r => r[0])
+
+           .map(txt => txt.transcript)
+
+           .join("");
+
+       form[0].value = text;
+
+       // console.log(text);
+
+   }
+
+   form[2].addEventListener("click", () => {
+
+       spRec.stop()
+
+   })
+ 
+
+</script>
+<script src="js/script.js"></script>
+
+</body>
+</html>

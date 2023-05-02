@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Speech to text in js</title>
+
+    <!-- https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition -->
+
+    <!-- new webkitSpeechRecognition() || new SpeechRecognition()-->
+
+</head>
+
+<body>
+
+    <form>
+
+        <h1>Speech To Text Converter </h1>
+
+        <textarea id="convert_text" rows="10" cols="30"></textarea>
+        
+        <button type="submit" id="click_to_record">Speak!</button>
+
+        <button type="button" id="click_to_record">Stop</button>
+        <br> <br><br><br><br><br><br><br><br><br><br><br>
+      
+    <footer>
+        <p>&copy;<a href="https://instagram.com/strongadas009?igshid=YmMyMTA2M2Y=" target="_blank">Strongadas</a> all Rights Reserved</p>
+            
+        </footer>
+    </form>
+    
+
+    <script>
+        const textarea = document.getElementById("convert_text")
+
+        let form = document.querySelector("form");
+
+        let sr = window.webkitSpeechRecognition || window.SpeechRecognition;
+
+        let spRec = new sr();
+
+        spRec.lang = "en";
+
+        spRec.continuous = true;
+
+        spRec.interimResults = true;
+
+        textarea.scrollTop= textarea.scrollHeight;
+
+        // console.log(spRec);
+
+        form.addEventListener("submit", e => {
+
+            e.preventDefault();
+
+            spRec.start();
+
+        })
+
+        spRec.onresult = res => {
+
+            let text = Array.from(res.results)
+
+                .map(r => r[0])
+
+                .map(txt => txt.transcript)
+
+                .join("");
+
+            form[0].value = text;
+
+            // console.log(text);
+
+        }
+
+        form[2].addEventListener("click", () => {
+
+            spRec.stop()
+
+        })
+      
+
+    </script>
+
+</body>
+
+</html>
